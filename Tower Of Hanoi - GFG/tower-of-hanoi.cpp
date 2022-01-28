@@ -10,20 +10,20 @@ class Solution{
     // You need to complete this function
 
     // avoid space at the starting of the string in "move disk....."
-   long long toh(int N, int A, int B, int C) {
+   long long toh(int n, int s, int d, int h) {
     //Your code here
-    long long count = pow(2,N);
-        if(N==1) {
-        cout<<"move disk "<<N <<" from rod "<<A<<" to rod "<<B<<endl;
+    long long count = pow(2,n);
+    if(n==1){
+         cout<<"move disk "<<n<<" from rod "<<s<<" to rod "<<d<<endl;
         return 1;
-        }
-        
-        toh(N-1,A,C,B);
-        cout<<"move disk "<<N <<" from rod "<<A<<" to rod "<<B<<endl;
-        toh(N-1,C,B,A);
-        
-        return count-1;
-   }
+    }
+    
+    toh(n-1,s,h,d);
+    cout<<"move disk "<<n<<" from rod "<<s<<" to rod "<<d<<endl;
+    toh(n-1,h,d,s);
+    
+    return count-1;
+  }
 };
 
 // { Driver Code Starts.
