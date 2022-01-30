@@ -8,27 +8,29 @@ using namespace std;
 class Solution {
   public:
 
-    void safePosHelper(vector<int>&v,int index,int k,int &ans){
-     if(v.size()==1){
-         ans=v[0];
-         return;
-     }
-       index = ((index + k) % v.size());
-       v.erase(v.begin()+index);
-       safePosHelper(v,index,k,ans);
-       return;
-   }
-   
-   int safePos(int n, int k) {
-       // code here
-       int ans=-1;
-       vector<int> v;
-       for(int i=1;i<=n;i++){
-           v.push_back(i);
-       }
-       safePosHelper(v,0,k-1,ans);
-       return ans;
-   }
+       void solve(int k,int index, int &ans, vector<int>&v){
+        if(v.size()==1){
+            ans = v[0];
+            return;
+        }
+        
+        index = ((index + k) %v.size());
+        v.erase(v.begin() + index);
+        solve(k,index,ans,v);
+        return;
+    }
+    int safePos(int n, int k) {
+        // code here
+        int index = 0;
+        int ans =-1;
+        vector<int> v;
+        for(int i =1; i<=n; i++){
+            v.push_back(i);
+        }
+        
+        solve(k-1,index,ans,v);
+        return ans;
+    }
 };
 
 // { Driver Code Starts.
