@@ -46,25 +46,48 @@ class Solution
                insertAtTail(CloneHead, CloneTail, temp->data);
                temp = temp->next;
            }
-        //step 2 map m random pointer s bhr liye
-        unordered_map<Node*,Node*>map;
-        temp = head;
-        Node* temp2 = CloneHead;
-        while(temp != NULL && temp2 != NULL){
-            map[temp] = temp2;
-            
-            temp2 = temp2->next;
-            temp = temp->next;
-        }
-        temp = head;
-        temp2 = CloneHead;
+        //step 2 insert clonenode between original list
         
-        while(temp != NULL){
-            temp2->arb = map[temp->arb];
+        Node* original = head;
+        Node* clone = CloneHead;
+        while(original != NULL && clone != NULL){
+            Node* next = original->next;
+            original->next = clone;
+            original = next;
             
-            temp = temp->next;
-            temp2 = temp2->next;
+            next = clone->next;
+            clone->next = original;
+            clone = next;
         }
+        
+        //step3 random pointer
+        original = head;
+         
+        while(original != NULL ){
+            if(original->next != NULL){
+                original->next->arb = original->arb ? 
+                original->arb->next : original->arb;
+            }
+            
+            original = original->next->next;
+            
+        }
+        //step4 wapas s list chamge kr do 
+        //  reverse step 2
+         original = head;
+         Node* copy = CloneHead; 
+        while(original != NULL && copy != NULL){
+            if(original->next != NULL){
+                original->next = original->next->next;
+            }
+            if(copy->next != NULL){
+                copy->next = copy->next->next;
+            }
+           
+                original = original->next;
+                copy = copy->next;
+        }
+        
         return CloneHead;
     }
 
